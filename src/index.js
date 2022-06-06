@@ -1,12 +1,23 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from "react-dom/client";
+import App from './app.js'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from 'components/home';
+import About from "./components/about";
+import Contact from "./components/contact";
 
-const HelloWorld = () => {
-    return (
-        <h1>
-            Hello World
-        </h1>
-    );
-}
 
-ReactDOM.render(<HelloWorld />, document.getElementById("root"));
+const root = ReactDOM.createRoot(
+    document.getElementById("root")
+);
+root.render(
+    <BrowserRouter>
+        <Routes>
+            <Route path="/" element={<App />}>
+                <Route path="home" element={<Home />} />
+                <Route path="about" element={<About />} />
+                <Route path="contact" element={<Contact />} />
+            </Route>
+        </Routes>
+    </BrowserRouter>
+);
