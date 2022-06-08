@@ -8,7 +8,6 @@ const Navbar = () => {
         <Link className="link navbar__btn" to="/contact">Contact</Link>
         <Link className="link navbar__btn" to="/teams">Gardening Teams</Link>
         <Link className="link navbar__btn" to="/players">Players</Link>
-
     </nav>
 };
 
