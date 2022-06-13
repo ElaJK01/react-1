@@ -51,7 +51,7 @@ const names = flatten(map(namesList, first));
 const surnames = flatten(map(surnameList, first));
 const descriptions = flatten(map(descriptionList, first));
 
-const shouldThrowError = () => lt(Math.floor(multiply(Math.random(), 100)), 1);
+const shouldThrowError = () => lt(Math.floor(multiply(Math.random(), 2)), 1);
 
 const oneRandomName = () =>
     nth(Math.floor(multiply(Math.random(), length(names))), names);
@@ -67,7 +67,7 @@ const zipPlayerWithScore = (el) =>
 
 const addSurnameAndDescription = (el) => pipe(assoc('surname', oneRandomSurname()), assoc('description', oneRandomPersonDescription()))(el)
 
-const delay = () =>
+export const delay = () =>
     new Promise((resolve, reject) =>
         setTimeout(
             () => (shouldThrowError() ? reject("network error") : resolve()),
@@ -77,7 +77,7 @@ const delay = () =>
 
 export const getPlayers = async (numberOfPlayers) => {
     try {
-        await delay();
+        // await delay();
         const players = map(oneRandomName, range(0, numberOfPlayers));
         const playersList = map(zipPlayerWithScore, players)
         return map(addSurnameAndDescription, playersList);
@@ -86,15 +86,19 @@ export const getPlayers = async (numberOfPlayers) => {
     }
 };
 
+const addTeamName = (el) => ({teamName: teamFakeNameGenerator(), teamPlayers: el, description: teamFakeDescription()})
+
 export const getTeams = async (numberOfPlayers, numberOfTeams) => {
     try {
-        await delay();
-        return await Promise.all(
+        // await delay();
+        const players =  await Promise.all(
             map(
                 async () => await getPlayers(numberOfPlayers),
                 range(0, numberOfTeams)
             )
         );
+
+        return map(addTeamName, players)
     } catch {
         console.error("no teams");
     }
