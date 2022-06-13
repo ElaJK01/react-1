@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {getPlayers} from "../../fakeData";
-import {map} from "ramda";
+import {map, prop, sortBy} from "ramda";
 import Header from "./header";
 
 const Players = () => {
     const [playersList, setPlayersList] = useState([])
 
+    const sortBySurname = sortBy(prop('surname'))
+    const sortByName = sortBy(prop('name'))
+
 
     useEffect(() => {
         const getPlayerList = async () => {
             try {
-                const playersList = await getPlayers(2000);
-                setPlayersList(playersList)
+                const playersList = await getPlayers(10);
+                setPlayersList(sortBySurname(sortByName(playersList)))
             } catch(error) {
                 console.log('error', error)
             }
