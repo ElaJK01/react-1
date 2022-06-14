@@ -1,12 +1,20 @@
 import React, {useEffect, useState} from "react";
 import {delay, getPlayers, getTeams} from "../../fakeData";
-import {indexOf, map, prop, sortBy} from "ramda";
+import {indexOf, length, map, multiply, prop, slice, sortBy, subtract} from "ramda";
 import Error from "./error";
+import Header from "./header";
+import Pagination from "./pagination";
+import PersonsList from "./personsList";
+import TeamsList from "./teamsList";
+import Modal from "./modal";
 
 const Teams = () => {
     const [teamsList, setTeamsList] = useState([])
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [itemsPerPage, setItemsPerPage] = useState(10)
+
 
     console.log('teamlist', teamsList)
 
@@ -18,7 +26,7 @@ const Teams = () => {
             setError(false)
             try {
                 await delay();
-                const teamsList = await getTeams(5, 10);
+                const teamsList = await getTeams(11, 50);
                 setTeamsList(sortByTeamName(teamsList))
             } catch(error) {
                 setError(true)
@@ -29,15 +37,22 @@ const Teams = () => {
         getTeamsList();
     }, [])
 
-    return (<div><h2>Gardening Teams</h2>
-        {error && <p>Error!</p>}
-        {loading ? <p>Loading...</p> : (<div>{map((el) => <div key={indexOf(el, teamsList)}><h5>{el.teamName} - {el.description}</h5>
-        <h6>Team players:</h6>
-            <ul>
-                {map((i) => <li key={indexOf(i, prop('teamPlayers', el))}>{i.name} {i.surname} - {i.description}</li> ,prop('teamPlayers', el))}
-            </ul>
+    const lastItemIndex = multiply(currentPage, itemsPerPage)
+    const firstItemIndex = subtract(lastItemIndex, itemsPerPage)
+    const currentItems = slice(firstItemIndex, lastItemIndex, teamsList)
+    const handlePaginate = (pageNumber) => setCurrentPage(pageNumber)
+    console.log('currentItems', currentItems)
 
-        </div> ,teamsList)}</div>)}
+    return (<div><Header/>
+        <section className="section">
+            <h3 className="section__title">Teams list</h3>
+            <div className="section__content">
+                {!loading && !error && <Pagination itemsPerPage={itemsPerPage} totalItems={length(teamsList)} paginate={handlePaginate}/>}
+                {error && <p>error!</p>}
+                {loading ? (<p>Loading...</p>) : !error && <TeamsList list={currentItems}/>}
+            </div>
+        </section>
+
     </div>);
 };
 
