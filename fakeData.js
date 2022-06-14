@@ -77,7 +77,6 @@ export const delay = () =>
 
 export const getPlayers = async (numberOfPlayers) => {
     try {
-        // await delay();
         const players = map(oneRandomName, range(0, numberOfPlayers));
         const playersList = map(zipPlayerWithScore, players)
         return map(addSurnameAndDescription, playersList);
@@ -90,7 +89,6 @@ const addTeamName = (el) => ({teamName: teamFakeNameGenerator(), teamPlayers: el
 
 export const getTeams = async (numberOfPlayers, numberOfTeams) => {
     try {
-        // await delay();
         const players =  await Promise.all(
             map(
                 async () => await getPlayers(numberOfPlayers),
