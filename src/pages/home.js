@@ -1,13 +1,10 @@
 import React from "react";
-import Header from "./header";
-import Footer from "./footer";
-import CardListContainer from "./cardListContainer";
+import CardListContainer from "../components/cardListContainer";
 import { cardButtonLinks, imgList } from "../helpers";
 
 function Home() {
   return (
     <div>
-      <Header />
       <section className="section">
         <h3 className="section__title">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit
@@ -29,7 +26,6 @@ function Home() {
           cardButtonLinks={cardButtonLinks}
         />
       </section>
-      <Footer />
     </div>
   );
 }

@@ -1,51 +1,51 @@
 import React, { useEffect, useState } from "react";
-import { length, multiply, prop, slice, sortBy, subtract } from "ramda";
-import { delay, getTeams } from "../../fakeData";
-import Header from "./header";
-import Pagination from "./pagination";
-import TeamsList from "./teamsList";
+import { prop, sortBy, length, multiply, subtract, slice } from "ramda";
+import { delay, getPlayers } from "../../fakeData";
+import Header from "../components/header";
+import Pagination from "../components/pagination";
+import PersonsList from "../components/personsList";
 
-function Teams() {
-  const [teamsList, setTeamsList] = useState([]);
+function Players() {
+  const [playersList, setPlayersList] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
 
-  const sortByTeamName = sortBy(prop("teamName"));
+  const sortBySurname = sortBy(prop("surname"));
+  const sortByName = sortBy(prop("name"));
 
   useEffect(() => {
-    const getTeamsList = async () => {
+    const getPlayerList = async () => {
       setLoading(true);
       setError(false);
       try {
         await delay();
-        const teamsList = await getTeams(11, 50);
-        setTeamsList(sortByTeamName(teamsList));
+        const playersList = await getPlayers(2000);
+        setPlayersList(sortBySurname(sortByName(playersList)));
       } catch (error) {
         setError(true);
       }
       setLoading(false);
     };
 
-    getTeamsList();
-  }, []);
+    getPlayerList();
+  }, [setPlayersList]);
 
   const lastItemIndex = multiply(currentPage, itemsPerPage);
   const firstItemIndex = subtract(lastItemIndex, itemsPerPage);
-  const currentItems = slice(firstItemIndex, lastItemIndex, teamsList);
+  const currentItems = slice(firstItemIndex, lastItemIndex, playersList);
   const handlePaginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <div>
-      <Header />
       <section className="section">
-        <h3 className="section__title">Teams list</h3>
+        <h3 className="section__title">Players list</h3>
         <div className="section__content">
           {!loading && !error && (
             <Pagination
               itemsPerPage={itemsPerPage}
-              totalItems={length(teamsList)}
+              totalItems={length(playersList)}
               paginate={handlePaginate}
             />
           )}
@@ -53,7 +53,7 @@ function Teams() {
           {loading ? (
             <p>Loading...</p>
           ) : (
-            !error && <TeamsList list={currentItems} />
+            !error && <PersonsList list={currentItems} />
           )}
         </div>
       </section>
@@ -61,4 +61,4 @@ function Teams() {
   );
 }
 
-export default Teams;
+export default Players;
