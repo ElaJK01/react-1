@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { length, multiply, prop, slice, sortBy, subtract } from "ramda";
-import { delay, getTeams } from "../../fakeData";
-import Header from "../components/header";
+import { delay, getTeams } from "../../API/getFakePlayersAndTeams";
 import Pagination from "../components/pagination";
 import TeamsList from "../components/teamsList";
 
-function Teams() {
+const Teams = () => {
   const [teamsList, setTeamsList] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -13,7 +12,7 @@ function Teams() {
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const sortByTeamName = sortBy(prop("teamName"));
-
+  console.log("teamslist", teamsList);
   useEffect(() => {
     const getTeamsList = async () => {
       setLoading(true);
@@ -58,6 +57,6 @@ function Teams() {
       </section>
     </div>
   );
-}
+};
 
 export default Teams;

@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { prop, sortBy, length, multiply, subtract, slice } from "ramda";
-import { delay, getPlayers } from "../../fakeData";
-import Header from "../components/header";
+import { delay, getPlayers } from "../../API/getFakePlayersAndTeams";
 import Pagination from "../components/pagination";
 import PersonsList from "../components/personsList";
 
-function Players() {
+const Players = () => {
   const [playersList, setPlayersList] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -59,6 +58,6 @@ function Players() {
       </section>
     </div>
   );
-}
+};
 
 export default Players;

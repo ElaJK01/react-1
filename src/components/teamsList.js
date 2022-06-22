@@ -2,9 +2,7 @@ import React, { useMemo, useState } from "react";
 import { indexOf, type, map, prop } from "ramda";
 import Modal from "./modal";
 
-function TeamsList(props) {
-  const { array } = props;
-  const list = useMemo(() => (type(array) === "Array" ? array : []), [array]);
+function TeamsList({ list }) {
   const [showModal, setShowModal] = useState(false);
 
   return (
