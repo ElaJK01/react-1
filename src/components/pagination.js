@@ -1,7 +1,7 @@
 import React from "react";
 import { divide, map, range } from "ramda";
 
-function Pagination({ itemsPerPage, totalItems, paginate }) {
+const Pagination = ({ itemsPerPage, totalItems, paginate }) => {
   const pageNumbers = range(1, Math.ceil(divide(totalItems, itemsPerPage)));
 
   return (
@@ -21,6 +21,6 @@ function Pagination({ itemsPerPage, totalItems, paginate }) {
       )}
     </div>
   );
-}
+};
 
 export default Pagination;

@@ -1,8 +1,8 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 import { indexOf, type, map, prop } from "ramda";
 import Modal from "./modal";
 
-function TeamsList({ list }) {
+const TeamsList = ({ list }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -76,6 +76,6 @@ function TeamsList({ list }) {
       )}
     </div>
   );
-}
+};
 
 export default TeamsList;

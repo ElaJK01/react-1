@@ -3,11 +3,9 @@ import { map, nth, zip } from "ramda";
 import Card from "./card";
 
 function CardListContainer({ imgList, cardButtonLinks }) {
-  const photoList = useMemo(() => imgList, [imgList]);
-  const buttonLinksList = useMemo(() => cardButtonLinks, [cardButtonLinks]);
   const zippedPhotosAndLinks = useMemo(
-    () => zip(photoList, buttonLinksList),
-    [photoList, buttonLinksList]
+    () => zip(imgList, cardButtonLinks),
+    [imgList, cardButtonLinks]
   );
   return (
     <div className="card-list-container">
