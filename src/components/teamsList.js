@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { indexOf, type, map, prop } from "ramda";
+import { indexOf, map, prop } from "ramda";
 import Modal from "./modal";
 
 const TeamsList = ({ list }) => {
@@ -11,7 +11,7 @@ const TeamsList = ({ list }) => {
         (el) => (
           <div key={indexOf(el, list)} className="card-list-container__card">
             <div className="card-content">
-              <h4 className="card-content__title"> {el.teamName}</h4>
+              <h4 className="card-content__title"> {prop("teamName", el)}</h4>
               <div
                 style={{
                   display: "flex",
@@ -28,16 +28,16 @@ const TeamsList = ({ list }) => {
                     const name = prop("name", i);
                     const surname = prop("surname", i);
                     return (
-                      <li>
+                      <li key={indexOf(i, prop("teamPlayers", el))}>
                         {name} {surname}
                       </li>
                     );
-                  }, el.teamPlayers)}
+                  }, prop("teamPlayers", el))}
                 </ul>
               </div>
               <p className="card-content__text">
                 Description:
-                {el.description}
+                {prop("description", el)}
               </p>
               <button
                 type="button"
@@ -47,29 +47,29 @@ const TeamsList = ({ list }) => {
                 Details
               </button>
             </div>
-            <Modal
-              show={showModal}
-              message={
-                <div>
-                  <h5>Players</h5>
+            {showModal && (
+              <Modal
+                message={
                   <div>
-                    {" "}
-                    <ul style={{ listStyleType: "none" }}>
-                      {map((i) => {
-                        const name = prop("name", i);
-                        const surname = prop("surname", i);
-                        return (
-                          <li>
-                            {name} {surname}
-                          </li>
-                        );
-                      }, el.teamPlayers)}
-                    </ul>
+                    <h5>Players</h5>
+                    <div>
+                      <ul style={{ listStyleType: "none" }}>
+                        {map((i) => {
+                          const name = prop("name", i);
+                          const surname = prop("surname", i);
+                          return (
+                            <li>
+                              {name} {surname}
+                            </li>
+                          );
+                        }, prop("teamPlayers", el))}
+                      </ul>
+                    </div>
                   </div>
-                </div>
-              }
-              handleCloseModal={() => setShowModal(false)}
-            />
+                }
+                handleCloseModal={() => setShowModal(false)}
+              />
+            )}
           </div>
         ),
         list

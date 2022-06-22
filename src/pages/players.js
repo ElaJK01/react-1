@@ -3,6 +3,7 @@ import { prop, sortBy, length, multiply, subtract, slice } from "ramda";
 import { delay, getPlayers } from "../../API/getFakePlayersAndTeams";
 import Pagination from "../components/pagination";
 import PersonsList from "../components/personsList";
+import Error from "../components/error";
 
 const Players = () => {
   const [playersList, setPlayersList] = useState([]);
@@ -48,7 +49,19 @@ const Players = () => {
               paginate={handlePaginate}
             />
           )}
-          {error && <p>error!</p>}
+          {error && (
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "auto",
+              }}
+            >
+              <Error onClick={() => {}} />
+            </div>
+          )}
           {loading ? (
             <p>Loading...</p>
           ) : (

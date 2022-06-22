@@ -1,16 +1,12 @@
 import React from "react";
-import ReactDOM from "react-dom";
 
-const Modal = ({ message, show, handleCloseModal }) =>
-  show &&
-  ReactDOM.createPortal(
-    <div className="modal">
-      <div>{message}</div>
-      <button className="card-content__btn" onClick={handleCloseModal}>
-        x
-      </button>
-    </div>,
-    document.body
-  );
+const Modal = ({ message, handleCloseModal }) => (
+  <div className="modal">
+    <div>{message}</div>
+    <button className="card-content__btn modal__btn" onClick={handleCloseModal}>
+      close
+    </button>
+  </div>
+);
 
 export default Modal;

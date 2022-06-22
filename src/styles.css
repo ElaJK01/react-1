@@ -233,14 +233,32 @@ footer:hover {
     left: 50%;
     margin: -100px 0 0 -150px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     color: grey;
     font-size: 15px;
-
     background-color: rgba(255,255,255,0.8);
-
     }
+
+.modal__btn {
+    color: grey;
+    margin: 5px;
+    padding: 2px;
+
+}
+
+.error__btn {
+    color: red;
+    border-width: 1px;
+    border-color: red;
+    background-color: white;
+    width: fit-content;
+    height: 20px;
+    border-radius: 5px;
+    font-size: 10px;
+    margin: 5px;
+}
 
 @media screen and (min-width: 320px) and (max-width: 768px) {
     body {
