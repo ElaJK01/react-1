@@ -15,7 +15,7 @@ const Players = () => {
   const sortBySurname = sortBy(prop("surname"));
   const sortByName = sortBy(prop("name"));
 
-  useEffect(() => {
+  const fetchPlayers = () => {
     const getPlayerList = async () => {
       setLoading(true);
       setError(false);
@@ -30,6 +30,10 @@ const Players = () => {
     };
 
     getPlayerList();
+  };
+
+  useEffect(() => {
+    fetchPlayers();
   }, [setPlayersList]);
 
   const lastItemIndex = multiply(currentPage, itemsPerPage);
@@ -59,7 +63,7 @@ const Players = () => {
                 margin: "auto",
               }}
             >
-              <Error onClick={() => {}} />
+              <Error onClick={() => fetchPlayers()} />
             </div>
           )}
           {loading ? (

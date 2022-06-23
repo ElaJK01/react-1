@@ -1,7 +1,7 @@
 import React from "react";
 import error from "../assets/error.png";
 
-const Error = (onClick) => (
+const Error = ({ onClick }) => (
   <div
     style={{
       display: "flex",
@@ -15,7 +15,7 @@ const Error = (onClick) => (
       Sorry, couldn't get what you want!
     </p>
     <img src={error} alt={"error"} width={50} height={50} />
-    <button className={"error__btn"} onClick={onClick}>
+    <button type="button" className={"error__btn"} onClick={onClick}>
       Try again!
     </button>
   </div>

@@ -13,8 +13,8 @@ const Teams = () => {
   const [itemsPerPage, setItemsPerPage] = useState(10);
 
   const sortByTeamName = sortBy(prop("teamName"));
-  console.log("teamslist", teamsList);
-  useEffect(() => {
+
+  const fetchTeams = () => {
     const getTeamsList = async () => {
       setLoading(true);
       setError(false);
@@ -29,7 +29,9 @@ const Teams = () => {
     };
 
     getTeamsList();
-  }, []);
+  };
+
+  useEffect(() => fetchTeams(), [setTeamsList]);
 
   const lastItemIndex = multiply(currentPage, itemsPerPage);
   const firstItemIndex = subtract(lastItemIndex, itemsPerPage);
@@ -58,7 +60,7 @@ const Teams = () => {
                 margin: "auto",
               }}
             >
-              <Error onClick={() => {}} />
+              <Error onClick={() => fetchTeams()} />
             </div>
           )}
           {loading ? (
