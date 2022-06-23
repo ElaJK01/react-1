@@ -4,6 +4,7 @@ import { delay, getPlayers } from "../../API/getFakePlayersAndTeams";
 import Pagination from "../components/pagination";
 import PersonsList from "../components/personsList";
 import Error from "../components/error";
+import Loading from "../components/loading";
 
 const Players = () => {
   const [playersList, setPlayersList] = useState([]);
@@ -67,7 +68,17 @@ const Players = () => {
             </div>
           )}
           {loading ? (
-            <p>Loading...</p>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                margin: "auto",
+              }}
+            >
+              <Loading />
+            </div>
           ) : (
             !error && <PersonsList list={currentItems} />
           )}
