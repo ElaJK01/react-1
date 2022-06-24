@@ -47,7 +47,7 @@ const PersonsList = ({ list }) => {
                           {prop("name", el)} {prop("surname", el)}
                         </h5>
                         <p>{prop("description", el)}</p>
-                        <p className={"section__text"}>
+                        <p className="section__text">
                           ed ut perspiciatis unde omnis iste natus error sit
                           voluptatem accusantium doloremque laudantium, totam
                           rem aperiam eaque ipsa, quae ab illo inventore

@@ -17,5 +17,7 @@ module.exports = {
     "prettier/prettier": "error",
     "react/jsx-filename-extension": [1, { extensions: [".js", ".jsx"] }],
     "react/no-unstable-nested-components": [1, { allowAsProps: true }],
+    "react/function-component-definition": "off",
+    "react/prop-types": "off",
   },
 };

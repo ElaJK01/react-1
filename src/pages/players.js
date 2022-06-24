@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { prop, sortBy, length, multiply, subtract, slice } from "ramda";
+import React, { useEffect, useState } from "react";
+import { prop, sortBy, length, slice } from "ramda";
 import { delay, getPlayers } from "../../API/getFakePlayersAndTeams";
 import Pagination from "../components/pagination";
 import PersonsList from "../components/personsList";

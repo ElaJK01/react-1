@@ -33,20 +33,19 @@ const paginationCount = (
   const lastPageIndex = pageNumbers;
 
   if (!shouldShowLeftDots && shouldShowRightDots) {
-    let leftItemCount = 3 + 2 * adjacentPages;
-    let leftRange = range(1, leftItemCount);
+    const leftItemCount = 3 + 2 * adjacentPages;
+    const leftRange = range(1, leftItemCount);
     return [...leftRange, DOTS, pageNumbers];
   }
 
   if (shouldShowLeftDots && !shouldShowRightDots) {
-    let rightItemCount = 3 + 2 * adjacentPages;
-    let rightRange = range(pageNumbers - rightItemCount + 1, pageNumbers);
-    console.log("cas3", [firstPageIndex, DOTS, ...rightRange]);
+    const rightItemCount = 3 + 2 * adjacentPages;
+    const rightRange = range(pageNumbers - rightItemCount + 1, pageNumbers);
     return [firstPageIndex, DOTS, ...rightRange];
   }
 
   if (shouldShowLeftDots && shouldShowRightDots) {
-    let middleRange = range(leftBorderPagesIndex, rightBorderPagesIndex);
+    const middleRange = range(leftBorderPagesIndex, rightBorderPagesIndex);
     return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
   }
 };
@@ -78,7 +77,6 @@ const Pagination = (props) => {
   }
 
   const lastPage = paginationRange[paginationRange.length - 1];
-  console.log("paginationRange", paginationRange);
 
   return (
     <div className="card-list-container__floating-panel">
@@ -89,7 +87,7 @@ const Pagination = (props) => {
             : "link floating-panel__btn arrow-up"
         }
         onClick={onPrevious}
-      ></a>
+      />
       {map((page) => {
         if (page === DOTS) {
           return (
@@ -125,7 +123,7 @@ const Pagination = (props) => {
             : "link floating-panel__btn arrow-down"
         }
         onClick={onNext}
-      ></a>
+      />
     </div>
   );
 };

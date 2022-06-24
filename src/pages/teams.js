@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { length, multiply, prop, slice, sortBy, subtract } from "ramda";
+import { length, prop, slice, sortBy } from "ramda";
 import { delay, getTeams } from "../../API/getFakePlayersAndTeams";
 import Pagination from "../components/pagination";
 import TeamsList from "../components/teamsList";

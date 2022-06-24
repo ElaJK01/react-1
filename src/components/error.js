@@ -14,8 +14,8 @@ const Error = ({ onClick }) => (
     <p style={{ color: "red", width: "fit-content" }}>
       Sorry, couldn't get what you want!
     </p>
-    <img src={error} alt={"error"} width={50} height={50} />
-    <button type="button" className={"error__btn"} onClick={onClick}>
+    <img src={error} alt="error" width={50} height={50} />
+    <button type="button" className="error__btn" onClick={onClick}>
       Try again!
     </button>
   </div>
