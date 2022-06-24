@@ -25,3 +25,5 @@ export const cardButtonLinks = [
   "#",
   "#",
 ];
+
+export const DOTS = "...";

@@ -5,8 +5,6 @@ import Modal from "./modal";
 const PersonsList = ({ list }) => {
   const [showModal, setShowModal] = useState(false);
 
-  console.log("personsList", list);
-
   return (
     <div className="card-list-container">
       {map(

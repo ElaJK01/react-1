@@ -11,7 +11,7 @@ const Teams = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage] = useState(10);
 
   const sortByTeamName = sortBy(prop("teamName"));
 
@@ -34,9 +34,14 @@ const Teams = () => {
 
   useEffect(() => fetchTeams(), [setTeamsList]);
 
-  const lastItemIndex = multiply(currentPage, itemsPerPage);
-  const firstItemIndex = subtract(lastItemIndex, itemsPerPage);
-  const currentItems = slice(firstItemIndex, lastItemIndex, teamsList);
+  const currentDataCount = () => {
+    const firstPageIndex = (currentPage - 1) * itemsPerPage;
+    const lastPageIndex = firstPageIndex + itemsPerPage;
+    return slice(firstPageIndex, lastPageIndex, teamsList);
+  };
+
+  const currentData = currentDataCount();
+
   const handlePaginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -49,6 +54,8 @@ const Teams = () => {
               itemsPerPage={itemsPerPage}
               totalItems={length(teamsList)}
               paginate={handlePaginate}
+              currentPage={currentPage}
+              adjacentPages={3}
             />
           )}
           {error && (
@@ -77,7 +84,7 @@ const Teams = () => {
               <Loading />
             </div>
           ) : (
-            !error && <TeamsList list={currentItems} />
+            !error && <TeamsList list={currentData} />
           )}
         </div>
       </section>

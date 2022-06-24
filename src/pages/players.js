@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { prop, sortBy, length, multiply, subtract, slice } from "ramda";
 import { delay, getPlayers } from "../../API/getFakePlayersAndTeams";
 import Pagination from "../components/pagination";
@@ -11,7 +11,7 @@ const Players = () => {
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [itemsPerPage] = useState(20);
 
   const sortBySurname = sortBy(prop("surname"));
   const sortByName = sortBy(prop("name"));
@@ -37,9 +37,14 @@ const Players = () => {
     fetchPlayers();
   }, [setPlayersList]);
 
-  const lastItemIndex = multiply(currentPage, itemsPerPage);
-  const firstItemIndex = subtract(lastItemIndex, itemsPerPage);
-  const currentItems = slice(firstItemIndex, lastItemIndex, playersList);
+  const currentDataCount = () => {
+    const firstPageIndex = (currentPage - 1) * itemsPerPage;
+    const lastPageIndex = firstPageIndex + itemsPerPage;
+    return slice(firstPageIndex, lastPageIndex, playersList);
+  };
+
+  const currentData = currentDataCount();
+
   const handlePaginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
@@ -52,6 +57,8 @@ const Players = () => {
               itemsPerPage={itemsPerPage}
               totalItems={length(playersList)}
               paginate={handlePaginate}
+              currentPage={currentPage}
+              adjacentPages={3}
             />
           )}
           {error && (
@@ -80,7 +87,7 @@ const Players = () => {
               <Loading />
             </div>
           ) : (
-            !error && <PersonsList list={currentItems} />
+            !error && <PersonsList list={currentData} />
           )}
         </div>
       </section>
